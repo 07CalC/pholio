@@ -1,3 +1,10 @@
 
 
-export default function expor
+
+export const Basic = () => {
+  return (
+    <div>
+       basic
+    </div>
+  )
+}
