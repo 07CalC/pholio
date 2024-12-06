@@ -1,8 +1,8 @@
-import Image from "next/image";
+
 import { Navbar } from "./components/Navbar";
 import { Space_Mono } from "next/font/google";
 import { PoweredByPholio } from "../components/ui/poweredByPholio";
-import { LampDemo } from "../components/ui/lamp";
+
 
 const SpaceMono = Space_Mono({
   weight: "400",
