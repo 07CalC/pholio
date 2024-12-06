@@ -1,4 +1,4 @@
-import Basic from "sections/Basic"
+import { Basic } from "./sections/Basic";
 
 export default function Home () {
   return (
