@@ -2,6 +2,7 @@
 import { Navbar } from "./components/Navbar";
 import { Space_Mono } from "next/font/google";
 import { PoweredByPholio } from "../components/ui/poweredByPholio";
+import { Info } from "./components/Info";
 
 
 const SpaceMono = Space_Mono({
@@ -15,13 +16,18 @@ export default function Calc() {
       className={`bg-[#1f1e1e] min-h-svh w-full text-white text-3xl font-bold flex flex-col items-center align-center h-svh ${SpaceMono.className}`}
     >
       
-      <div className="w-1/3 fixed mt-5">
+      <div className="w-1/2 fixed mt-5">
         <Navbar />
       </div>
-      <div className="w-full h-full"></div>
+      <div className="w-full h-20">
+      </div>
+
+      <div className="w-full ">
+        <Info />
+      </div>
 
       
-        hehe
+       
         <PoweredByPholio />
       
     </div>
