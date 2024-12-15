@@ -1,5 +1,4 @@
-import { image } from "framer-motion/client";
-import { title } from "process";
+
 import { FiFigma } from "react-icons/fi";
 import { RiGithubFill } from "react-icons/ri";
 
