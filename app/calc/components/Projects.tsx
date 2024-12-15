@@ -48,7 +48,7 @@ export const Projects = () => {
       <strong className="text-[1.3rem] px-5 md:px-0 self-start md:self-start md:text-3xl underline ">Projects</strong>
       <div className="flex flex-col py-6 md:py-16 gap-y-5">
         {projects.map((project, index) => (
-          <div className={`${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} flex flex-col-reverse md:flex gap-y-4 gap-x-5 p-2 md:py-5 md:px-5 justify-center items-center bg-[#2d2d2d] rounded-xl`}>
+          <div key={index} className={`${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} flex flex-col-reverse md:flex gap-y-4 gap-x-5 p-2 md:py-5 md:px-5 justify-center items-center bg-[#2d2d2d] rounded-xl`}>
             <div className="flex flex-col gap-y-5 w-full md:w-2/3 self-auto">
               <strong className="text-2xl md:text-3xl ">{project.title}</strong>
               <p className="text-lg font-mono">{project.description}</p>
