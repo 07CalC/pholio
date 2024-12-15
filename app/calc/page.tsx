@@ -1,22 +1,12 @@
 
 import { Navbar } from "./components/Navbar";
-import { Space_Mono } from "next/font/google";
+
 import { PoweredByPholio } from "../components/ui/poweredByPholio";
 import { Info } from "./components/Info";
 
 import { Projects } from "./components/Projects";
-import { Pixelify_Sans } from "next/font/google";
 import { Press_Start_2P } from "next/font/google";
 
-const SpaceMono = Space_Mono({
-  weight: "400",
-  subsets: ["latin"],
-});
-
-const PixelifySans = Pixelify_Sans({
-  weight: "400",
-  subsets: ["latin"],
-});
 
 const pressStart2P = Press_Start_2P({
   weight: "400",
