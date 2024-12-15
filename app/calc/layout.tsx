@@ -20,6 +20,7 @@ export default function RootLayout({
           className={`bg-[#1f1e1e] `}
         >
           {children}
+          
         </body>
       </html>
     );
