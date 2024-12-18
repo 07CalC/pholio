@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { FiFigma } from "react-icons/fi";
 import { RiGithubFill } from "react-icons/ri";
 import { SiTypescript } from "react-icons/si";
@@ -121,12 +121,12 @@ export const Projects = () => {
                 <div className="flex rounded-xl flex-col h-full md:w-3/5 gap-y-6">
                 <img src={project.imageLink} alt="image" className="rounded-xl" />
                 <div className="flex gap-x-2 items-center justify-center">
-                    {project.techUsed?.map((tech, index) => {
+                    {/* {project.techUsed?.map((tech, index) => {
                       const Icon: React.ComponentType<any> = tech.icon;
                       return (
                         <Icon key={index} className="text-2xl"/>
                       )
-})}
+})} */}
                   </div>
               </div>
             )}
