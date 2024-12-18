@@ -1,5 +1,5 @@
 
-import React, { ReactElement } from "react";
+import React from "react";
 import { FiFigma } from "react-icons/fi";
 import { RiGithubFill } from "react-icons/ri";
 import { SiTypescript } from "react-icons/si";
