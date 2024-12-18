@@ -7,8 +7,10 @@ export const Navbar = () => {
                 CalC
             </Link>
             <div className=" text-[1rem] md:text-lg flex gap-x-3 md:gap-x-5">
-                <button className="">Blogs</button>
-                <button className="">Projects</button>
+            <Link href={"/calc/blogs"} className="text-[1rem] md:text-lg">
+                Blogs
+            </Link>
+                
             </div>
 
         </div>

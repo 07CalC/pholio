@@ -40,7 +40,7 @@ export const Info = () => {
             <strong className="text-lg md:text-2xl underline">Pholio↗</strong>
           </a>
         </div>
-        <div className="self-start w-full text-lg flex text-center flex-col">
+        <div className="self-start w-full text-lg flex text-center md:text-start flex-col">
           <div className="text-[1rem] break-words md:text-xl underline">
             <a href="mailto:maheshwarivinayak90@gmail.com">
               maheshwarivinayak90@gmail.com

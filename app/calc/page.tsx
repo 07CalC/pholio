@@ -6,6 +6,7 @@ import { Info } from "./components/Info";
 
 import { Projects } from "./components/Projects";
 import { Press_Start_2P } from "next/font/google";
+import { Skills } from "./components/Skills";
 
 
 const pressStart2P = Press_Start_2P({
@@ -16,9 +17,9 @@ const pressStart2P = Press_Start_2P({
 export default function Calc() {
   return (
     <div
-      className={`bg-[#1f1e1e] min-h-svh h-full w-full text-white text-3xl font-bold flex flex-col items-center  align-center ${pressStart2P.className}`}
+      className={`bg-[#1f1e1e] pb-16 min-h-svh h-full w-full text-white text-3xl font-bold flex flex-col items-center  align-center ${pressStart2P.className}`}
     >
-      <div className="md:w-1/2 fixed mt-3 md:mt-5">
+      <div className="md:w-1/2 w-11/12 fixed mt-3 md:mt-5">
         <Navbar />
       </div>
       <div className="w-full h-20">
@@ -27,12 +28,14 @@ export default function Calc() {
       <div className="w-full ">
         <Info />
       </div>
-      {/* <div className="w-full">
-        <Skills />
-      </div> */}
+      
       <div className="w-full">
           < Projects />
         </div>
+
+        <div className="w-full">
+        <Skills />
+      </div>
 
       
        
