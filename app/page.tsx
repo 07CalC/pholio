@@ -1,35 +1,25 @@
-"use client";
+
 import React from "react";
 import { motion } from "framer-motion";
 import { LampContainer } from "@/app/components/ui/lamp";
+import { image } from "framer-motion/client";
+import { createClient } from "@/utils/supabase/server";
+import { logout } from "./login/actions";
+import Link from "next/link";
+
+
  
-export default function Home() {
+export default async function Home() {
+  const supabase = await createClient()
+  const user = await supabase.auth.getUser()
+  
+  console.log(user)
   return (
-    <LampContainer>
-      <motion.h1
-        initial={{ opacity: 0.5, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          delay: 0.3,
-          duration: 0.8,
-          ease: "easeInOut",
-        }}
-        className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
-      >
-        Build Portfolio in Minutes 
-      </motion.h1>
-      <motion.h3
-      initial={{ opacity: 0.5, y: 100 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{
-        delay: 0.3,
-        duration: 0.8,
-        ease: "easeInOut",
-      }}
-      className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
-      >
-        coming soon
-      </motion.h3>
-    </LampContainer>
+    <div className="w-full h-screen flex flex-col gap-y-6 justify-center items-center bg-white">
+        {user.data.user && <p>logged in as {user.data.user?.user_metadata.name}</p>}
+        {user.data.user && <form action={logout}> <button>Logout</button></form>}
+        {user.data.user && <img src={user.data.user?.user_metadata.avatar_url} alt="avatar" className="w-1/4" />}
+        {!user.data.user && <Link href={"/login"}>Login</Link>}
+      </div>
   );
 }

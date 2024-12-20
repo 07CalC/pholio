@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import NextTopLoader from "nextjs-toploader";
+
+
 
 
 const geistSans = localFont({
@@ -33,7 +36,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
       >
+       <NextTopLoader color="#8ef09b" height={5} showSpinner={false} />
         {children}
+       
       </body>
     </html>
   );
