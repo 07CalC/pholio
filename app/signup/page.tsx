@@ -1,17 +1,26 @@
 import Link from "next/link";
 import { signup } from "./actions";
 import { OAuthSignInButtons } from "../login/oauthSignInButtons";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
-export default function SignUpPage({
+export default async function SignUpPage({
     searchParams,
 }: {
     searchParams: {
         message: string
 }
 }) {
+  const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if(user){
+      redirect('/onboarding')
+    }
   return (
-    <div className="absolute  flex-row-reverse inset-0 h-screen w-full flex bg-black bg-[linear-gradient(to_right,#505050_1px,transparent_1px),linear-gradient(to_bottom,#505050_1px,transparent_1px)] bg-[size:24px_24px]">
-      <div className="w-1/3 bg-blue-600 gap-3 rounded-l-[2.5rem] flex flex-col  justify-center items-center">
+    <div className="absolute  flex-row-reverse inset-0 h-screen w-full flex bg-black bg-[linear-gradient(to_right,#505050_1px,transparent_1px),linear-gradient(to_bottom,#505050_1px,transparent_1px)] bg-[size:60px_60px]">
+      <div className="w-1/3 bg-[#262262] gap-3 rounded-l-[2.5rem] flex flex-col  justify-center items-center">
         <img src="../favicon.ico" alt="logo" className="w-1/2" />
         <strong className="text-white text-3xl md:text-5xl ">
         Join Pholio Today
@@ -71,7 +80,7 @@ export default function SignUpPage({
               </div>
               <button
                 formAction={signup}
-                className="w-5/6 mt-5 rounded-lg bg-blue-600 text-white border-2 border-white p-2 text-sm font-medium placeholder:text-zinc-400 focus:outline-0"
+                className="w-5/6 mt-5 rounded-lg bg-[#262262] text-white border-2 border-white p-2 text-sm font-medium placeholder:text-zinc-400 focus:outline-0"
                 type="submit"
               >
                 SignUp
