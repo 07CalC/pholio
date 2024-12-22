@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
 import { Provider } from "@supabase/supabase-js";
-import { getURL } from "@/utils/helper";
+// import { getURL } from "@/utils/helper";
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
@@ -32,11 +32,11 @@ export async function OAuthLogin(provider: Provider) {
     return redirect("/login?message=No provider selected");
   }
   const supabase = await createClient();
-  const redirectURL = getURL("/auth/callback");
+  // const redirectURL = getURL("/auth/callback");
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider,
     options: {
-      redirectTo: redirectURL,
+      redirectTo: 'https://beta.pholio.batua.site/auth/callback',
     },
   });
   if (error) {
