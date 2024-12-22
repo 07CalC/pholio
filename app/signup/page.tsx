@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 
-type tParams = Promise<{ slug: string[] }>
+// type tParams = Promise<{ slug: string[] }>
 
 export default async function SignUpPage() {
 
