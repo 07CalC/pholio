@@ -1,8 +1,5 @@
 
 import React from "react";
-import { motion } from "framer-motion";
-import { LampContainer } from "@/app/components/ui/lamp";
-import { image } from "framer-motion/client";
 import { createClient } from "@/utils/supabase/server";
 import { logout } from "./login/actions";
 import Link from "next/link";

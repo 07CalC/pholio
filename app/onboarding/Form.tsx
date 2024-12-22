@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 
 import { useRouter } from "next/navigation";
+
 type inputs = z.infer<typeof onboardingSchema>;
 
 const steps = [
@@ -37,15 +38,13 @@ export function OnboardingForm() {
   const [previousStep, setPreviousStep] = useState<number>(0);
   const [currentStep, setCurrentStep] = useState<number>(0);
   const delta = currentStep - previousStep;
-  const pfpUpload = useRef<any>(null);
-  const [image, setImage] = useState<any>(null);
-  const [imgLoading, setImgLoading] = useState<boolean>(false);
+  const pfpUpload = useRef<HTMLInputElement>(null);
+  const [image, setImage] = useState<string | ArrayBuffer | null>(null);
   const [imgUrl, setImgUrl] = useState<string>("");
 
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     trigger,
     setValue,
@@ -61,14 +60,14 @@ export function OnboardingForm() {
   type FieldName = keyof inputs;
 
   const [uploadedFile, setUploadedFile] = useState<any>(null);
-  const [filename, setFilename] = useState("");
+  // const [filename, setFilename] = useState("");
   const uploadPreset = process.env.NEXT_PUBLIC_UPLOAD_PRESET as string;
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 
   const handleFileChange = (event: any) => {
     setImgUrl("");
     setUploadedFile(event.target.files[0]);
-    setFilename(event.target.files[0].name);
+    // setFilename(event.target.files[0].name);
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -79,8 +78,8 @@ export function OnboardingForm() {
     }
   };
   const handleImgSubmit = async (event: any) => {
-    console.log("uploading");
-    setImgLoading(true);
+   
+
     event.preventDefault();
 
     const formData = new FormData();
@@ -95,9 +94,9 @@ export function OnboardingForm() {
       );
       if (response.statusText === "OK") {
         setImgUrl(response.data.secure_url);
-        setImgLoading(false);
+
       }
-      setImgLoading(false);
+
     } catch (error) {
       console.error(error);
     }
@@ -134,7 +133,7 @@ export function OnboardingForm() {
     }
   };
 
-  console.log(currentStep, steps.length - 1);
+
 
   return (
     <div className="h-svh w-full flex flex-col bg-[#1b1b1b] bg-[linear-gradient(to_right,#505050_1px,transparent_1px),linear-gradient(to_bottom,#505050_1px,transparent_1px)] bg-[size:60px_60px]">
@@ -204,10 +203,10 @@ export function OnboardingForm() {
               />
 
               <div
-                onClick={() => pfpUpload.current.click()}
+                onClick={() => pfpUpload.current?.click()}
                 className="w-52 bg-[#1b1b1b] h-52 rounded-full border-4 border-[#6A00F4]"
               >
-                <img src={image} className="w-full h-full rounded-full " />
+                <img src={image?.toString()} className="w-full h-full rounded-full " />
               </div>
 
               {errors.displayimage && (

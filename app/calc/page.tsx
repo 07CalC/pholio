@@ -5,14 +5,8 @@ import { PoweredByPholio } from "../components/ui/poweredByPholio";
 import { Info } from "./components/Info";
 
 import { Projects } from "./components/Projects";
-import { Press_Start_2P } from "next/font/google";
 import { Skills } from "./components/Skills";
 
-
-const pressStart2P = Press_Start_2P({
-  weight: "400",
-  subsets: ["latin"],
-})
 
 export default function Calc() {
   return (

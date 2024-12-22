@@ -1,15 +1,11 @@
 import Link from "next/link";
-import { login, OAuthLogin } from "./actions";
+import { login } from "./actions";
 import { OAuthSignInButtons } from "./oauthSignInButtons";
-import { Nunito_Sans } from "next/font/google";
+
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 
-const nunitoSans = Nunito_Sans({
-  weight: "400",
-  subsets: ["latin"],
-});
 
 export default async function LoginPage({
   searchParams,
@@ -116,7 +112,6 @@ export default async function LoginPage({
           </p>
           <Link href={"/signup"}>
             <strong className="text-blue-600 text-xl md:text-2xl">
-              {" "}
               Sign Up
             </strong>
           </Link>
