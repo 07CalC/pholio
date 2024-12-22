@@ -59,22 +59,22 @@ export const Projects = () => {
   ];
 
   return (
-    <div className="w-full md:px-56 flex flex-col justify-center">
-      <strong className="text-[1.3rem] px-5 md:px-0 self-start  md:text-3xl underline">Projects</strong>
-      <div className="flex flex-col py-6 md:py-16 gap-y-8 md:gap-y-5">
+    <div className="w-full lg:px-20 px-4 flex flex-col justify-center">
+      <strong className="text-[1.3rem] px-5 lg:px-0 self-start  lg:text-3xl underline">Projects</strong>
+      <div className="flex flex-col py-6 lg:py-16 gap-y-8 lg:gap-y-5">
         {projects.map((project, index) => (
-          <div key={index} className={`${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} flex flex-col-reverse md:flex gap-y-4 gap-x-5 p-2 md:py-5 md:px-5 justify-center items-center bg-[#2d2d2d] rounded-xl`}>
-            <div className="flex flex-col md:gap-y-5 w-full md:w-2/3 self-auto">
-              <strong className="text-2xl md:text-3xl ">{project.title}</strong>
+          <div key={index} className={`${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} flex flex-col-reverse lg:flex gap-y-4 gap-x-5 p-2 lg:py-5 lg:px-5 justify-center items-center bg-[#2d2d2d] rounded-xl`}>
+            <div className="flex flex-col lg:gap-y-5 w-full lg:w-2/3 self-auto">
+              <strong className="text-2xl lg:text-3xl ">{project.title}</strong>
               <p className="text-lg font-mono">{project.description}</p>
-              <div className="flex gap-x-2 md:sgap-x-5">
+              <div className="flex gap-x-2 lg:sgap-x-5">
                 {project.LiveLink && (
                     <a
                     href={project.LiveLink}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <button className="bg-[#bf2020] text-sm md:text-xl text-white p-2 md:px-3 rounded-full">
+                    <button className="bg-[#bf2020] text-sm lg:text-xl text-white p-2 lg:px-3 rounded-full">
                       Live
                     </button>
                   </a>
@@ -118,7 +118,7 @@ export const Projects = () => {
               </div>
             </div>
             {project.imageLink && (
-                <div className="flex rounded-xl flex-col h-full md:w-3/5 gap-y-6">
+                <div className="flex rounded-xl flex-col h-full lg:w-3/5 gap-y-6">
                 <img src={project.imageLink} alt="image" className="rounded-xl" />
                 <div className="flex gap-x-2 items-center justify-center">
                     {/* {project.techUsed?.map((tech, index) => {
@@ -127,6 +127,8 @@ export const Projects = () => {
                         <Icon key={index} className="text-2xl"/>
                       )
 })} */}
+                    <img src="https://www.svgrepo.com/show/439022/typescript.svg" className="w-8 h-8"/>
+                    
                   </div>
               </div>
             )}

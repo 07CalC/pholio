@@ -1,11 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { input, z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { onboardingSchema } from "../lib/onboardingSchema";
 import { motion } from "framer-motion";
+import axios from "axios";
+
+import { useRouter } from "next/navigation";
 type inputs = z.infer<typeof onboardingSchema>;
 
 const steps = [
@@ -16,14 +19,11 @@ const steps = [
   },
   {
     tagline: "Your story matters. Let’s craft an intro that speak volumes.",
-    fields: [
-      "displayname",
-      "age",
-      "gender",
-      "displayimage",
-      "contactemail",
-      "contactphone",
-    ],
+    fields: ["displayname", "age", "gender", "displayimage"],
+  },
+  {
+    tagline: "Stay Connected: Share how the world can reach you.",
+    fields: ["contactemail", "contactphone"],
   },
   {
     tagline:
@@ -33,26 +33,80 @@ const steps = [
 ];
 
 export function OnboardingForm() {
-  const [previousStep, setPreviousStep] = useState(0);
-  const [currentStep, setCurrentStep] = useState(0);
+  const router = useRouter();
+  const [previousStep, setPreviousStep] = useState<number>(0);
+  const [currentStep, setCurrentStep] = useState<number>(0);
   const delta = currentStep - previousStep;
-  const [tagline, setTagline] = useState(steps[0].tagline);
+  const pfpUpload = useRef<any>(null);
+  const [image, setImage] = useState<any>(null);
+  const [imgLoading, setImgLoading] = useState<boolean>(false);
+  const [imgUrl, setImgUrl] = useState<string>("");
+
   const {
     register,
     handleSubmit,
     watch,
     reset,
     trigger,
+    setValue,
     formState: { errors },
   } = useForm<inputs>({
     resolver: zodResolver(onboardingSchema),
   });
 
+  useEffect(() => {
+    setValue("displayimage", imgUrl);
+  }, [imgUrl]);
+
   type FieldName = keyof inputs;
 
-  useEffect(() => {
-    setTagline(steps[currentStep].tagline);
-  }, [currentStep]);
+  const [uploadedFile, setUploadedFile] = useState<any>(null);
+  const [filename, setFilename] = useState("");
+  const uploadPreset = process.env.NEXT_PUBLIC_UPLOAD_PRESET as string;
+  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+
+  const handleFileChange = (event: any) => {
+    setImgUrl("");
+    setUploadedFile(event.target.files[0]);
+    setFilename(event.target.files[0].name);
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const handleImgSubmit = async (event: any) => {
+    console.log("uploading");
+    setImgLoading(true);
+    event.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("file", uploadedFile);
+    formData.append("upload_preset", uploadPreset);
+
+    try {
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/" + cloudName + "/image/upload",
+        formData
+      );
+      if (response.statusText === "OK") {
+        setImgUrl(response.data.secure_url);
+        setImgLoading(false);
+      }
+      setImgLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const processForm: SubmitHandler<inputs> = (data) => {
+    console.log(data);
+    reset();
+  };
 
   const next = async () => {
     const fields = steps[currentStep].fields;
@@ -60,9 +114,13 @@ export function OnboardingForm() {
 
     if (!output) return;
 
-    if (currentStep < 2) {
-      if (currentStep === 2) {
-        await handleSubmit(processForm)();
+    if (currentStep < steps.length) {
+      if (currentStep === 1 && image !== null && imgUrl.length === 0) {
+        handleImgSubmit(event);
+      }
+      if (currentStep === steps.length - 1) {
+        handleSubmit(processForm)();
+        return router.push("/dashboard");
       }
       setPreviousStep(currentStep);
       setCurrentStep((step) => step + 1);
@@ -76,23 +134,20 @@ export function OnboardingForm() {
     }
   };
 
-  const processForm: SubmitHandler<inputs> = (data) => {
-    console.log(data);
-    reset();
-  };
+  console.log(currentStep, steps.length - 1);
 
   return (
-    <div className="h-svh w-full flex flex-col bg-black bg-[linear-gradient(to_right,#505050_1px,transparent_1px),linear-gradient(to_bottom,#505050_1px,transparent_1px)] bg-[size:60px_60px]">
+    <div className="h-svh w-full flex flex-col bg-[#1b1b1b] bg-[linear-gradient(to_right,#505050_1px,transparent_1px),linear-gradient(to_bottom,#505050_1px,transparent_1px)] bg-[size:60px_60px]">
       <div
-        className={`w-full h-1/6 bg-[#262262] rounded-b-[2rem] flex flex-col p-8 justify-center items-center`}
+        className={`w-full h-1/6 bg-gradient-to-r from-[#6A00F4] to-[#9C27B0] rounded-b-[2rem] flex flex-col p-8 justify-center items-center`}
       >
         <motion.div
-          key={tagline}
+          key={currentStep}
           initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          <strong className="text-white text-3xl md:text-4xl text-center">
+          <strong className="text-white inter font-extrabold text-3xl md:text-4xl text-center">
             {steps[currentStep].tagline}
           </strong>
         </motion.div>
@@ -106,18 +161,18 @@ export function OnboardingForm() {
           className="w-full h-4/6 flex flex-col p-10 items-center justify-center gap-y-3"
         >
           <form
-            className="w-full  flex items-center justify-center gap-x-2"
+            className="w-full flex items-center justify-center gap-x-2"
             onSubmit={handleSubmit(processForm)}
           >
-            <p className="text-white font-semibold text-xl md:text-3xl text-center">
+            <p className="text-[#6700ec] jetbrains drop-shadow-xl bg-cyan-500 bg-clip-text font-semibold text-xl md:text-4xl text-center">
               pholio.online/
             </p>
-
+            {/* 7f1dff */}
             <input
               type="text"
               id="username"
               {...register("username")}
-              className="text-white text-2xl md:text-2xl bg-black border-2 rounded-xl border-white   p-2 focus-within:border-0 focus:border-0"
+              className="w-1/5 text-white  jetbrains font-semibold text-2xl md:text-3xl bg-[#222222] border-[3px] rounded-xl border-[#6A00F4] focus:ring-0  p-1 px-2"
               placeholder="username"
             />
           </form>
@@ -136,24 +191,38 @@ export function OnboardingForm() {
           transition={{ duration: 0.3, ease: "easeInOut" }}
           className="w-full h-4/6 flex flex-col items-center justify-center gap-y-3"
         >
-          <div className="flex w-full p-8 h-full items-center justify-center">
-            <div className="w-1/4 h-full flex flex-col gap-y-4 justify-center items-center">
+          <div className="flex w-full p-8 h-full items-center justify-center jetbrains">
+            <div className="w-1/3 h-full flex flex-col gap-y-4 justify-center items-center">
               <strong className="text-white text-2xl md:text-3xl">
                 Display Picture
               </strong>
-              <img
-                src="/favicon.ico"
-                alt="logo"
-                className="w-1/2 rounded-full border border-white"
+              <input
+                onChange={handleFileChange}
+                className="hidden"
+                ref={pfpUpload}
+                type="file"
               />
+
+              <div
+                onClick={() => pfpUpload.current.click()}
+                className="w-52 bg-[#1b1b1b] h-52 rounded-full border-4 border-[#6A00F4]"
+              >
+                <img src={image} className="w-full h-full rounded-full " />
+              </div>
+
+              {errors.displayimage && (
+                <p className="text-red-400 text-lg font-semibold">
+                  {errors.displayimage.message}
+                </p>
+              )}
             </div>
-            <div className="w-3/4 h-full flex flex-col justify-center items-center">
+            <div className="w-2/3 h-full flex flex-col justify-center items-center">
               <form
                 className="w-full h-full flex flex-col gap-y-4 p-5 justify-center items-center"
                 onSubmit={handleSubmit(processForm)}
               >
-                <div className="h-1/2 flex items-center justify-between w-full">
-                  <div className="flex flex-col gap-y-2">
+                <div className="h-1/2 flex items-center gap-x-16  justify-center w-full">
+                  <div className="flex flex-col gap-y-2 w-1/2 h-full">
                     <label className="text-white text-2xl md:text-xl">
                       Display Name
                     </label>
@@ -161,7 +230,7 @@ export function OnboardingForm() {
                       type="text"
                       id="displayName"
                       {...register("displayname")}
-                      className="text-white text-xl bg-black border-2 rounded-xl border-white p-2 focus-within:border-0 focus:border-0"
+                      className="text-white  jetbrains font-semibold text-lg md:text-xl bg-[#222222] border-[3px] rounded-xl border-[#6A00F4] focus:ring-0  p-2"
                       placeholder="Display Name"
                     />
                     {errors.displayname && (
@@ -170,24 +239,8 @@ export function OnboardingForm() {
                       </p>
                     )}
                   </div>
-                  <div className="flex flex-col gap-y-2">
-                    <label className="text-white text-2xl md:text-xl">
-                      Contact Email
-                    </label>
-                    <input
-                      type="email"
-                      id="contactEmail"
-                      {...register("contactemail")}
-                      className="text-white text-xl bg-black border-2 rounded-xl border-white p-2 focus-within:border-0 focus:border-0"
-                      placeholder="johndoe@pholio.online"
-                    />
-                    {errors.contactemail && (
-                      <p className="text-red-400 text-lg font-semibold">
-                        {errors.contactemail.message}
-                      </p>
-                    )}
-                  </div>
-                  <div className="flex flex-col gap-y-2">
+
+                  <div className="flex flex-col gap-y-2 w-1/2 h-full">
                     <label className="text-white text-2xl md:text-xl">
                       Professional Title
                     </label>
@@ -195,7 +248,7 @@ export function OnboardingForm() {
                       type="text"
                       id="professionaltitle"
                       {...register("professionaltitle")}
-                      className="text-white text-xl bg-black border-2 rounded-xl border-white p-2 focus-within:border-0 focus:border-0"
+                      className="text-white  jetbrains font-semibold text-lg md:text-xl bg-[#222222] border-[3px] rounded-xl border-[#6A00F4] focus:ring-0  p-2"
                       placeholder="Web developer"
                     />
                     {errors.professionaltitle && (
@@ -205,8 +258,8 @@ export function OnboardingForm() {
                     )}
                   </div>
                 </div>
-                <div className="h-1/2 flex items-center gap-x-4 justify-between w-full">
-                  <div className="flex w-1/4 gap-x-2">
+                <div className="h-1/2 flex items-center gap-x-16 justify-center w-full">
+                  <div className="flex w-1/2 gap-x-2 h-full">
                     <div className="flex flex-col gap-y-2">
                       <label className="text-white text-2xl md:text-xl">
                         Age
@@ -215,8 +268,8 @@ export function OnboardingForm() {
                         type="number"
                         id="age"
                         {...register("age")}
-                        className="text-white w-11/12 text-xl bg-black border-2 rounded-xl border-white p-2 focus-within:border-0 focus:border-0"
-                        placeholder='25'
+                        className="text-white w-5/6 jetbrains font-semibold text-lg md:text-xl bg-[#222222] border-[3px] rounded-xl border-[#6A00F4] focus:ring-0  p-2"
+                        placeholder="25"
                       />
                       {errors.age && (
                         <p className="text-red-400 text-lg font-semibold">
@@ -231,11 +284,10 @@ export function OnboardingForm() {
                       <select
                         id="gender"
                         {...register("gender")}
-                        className="text-white text-xl bg-black border-2 rounded-xl border-white p-2"
+                        className="text-white  jetbrains font-semibold text-lg md:text-xl bg-[#222222] border-[3px] rounded-xl border-[#6A00F4] focus:ring-0  p-2"
                       >
                         <option value="M">M (male)</option>
                         <option value="F">F (female)</option>
-                        
                       </select>
                       {errors.gender && (
                         <p className="text-red-400 text-lg font-semibold">
@@ -244,32 +296,15 @@ export function OnboardingForm() {
                       )}
                     </div>
                   </div>
-                  <div className="flex flex-col w-1/3 gap-y-2">
-                    <label className="text-white text-2xl md:text-xl">
-                      Contact Phone
-                    </label>
-                    <input
-                      type="number"
-                      id="contactphone"
-                      {...register("contactphone")}
-                      className="text-white text-xl bg-black border-2 rounded-xl border-white p-2 focus-within:border-0 focus:border-0"
-                      placeholder="01125532552"
-                    />
-                    {errors.contactphone && (
-                      <p className="text-red-400 text-lg font-semibold">
-                        {errors.contactphone.message}
-                      </p>
-                    )}
-                  </div>
-                  <div className="flex flex-col w-1/3 gap-y-2">
+
+                  <div className="flex flex-col w-1/2 gap-y-2 h-full">
                     <label className="text-white text-2xl md:text-xl">
                       Short Description
                     </label>
                     <textarea
-                      
                       id="description"
                       {...register("description")}
-                      className="text-white text-xl bg-black border-2 rounded-xl border-white p-2 focus-within:border-0 focus:border-0"
+                      className="text-white  jetbrains font-semibold text-lg md:text-xl bg-[#222222] border-[3px] rounded-xl border-[#6A00F4] focus:ring-0  p-2"
                       placeholder="into new technologies"
                     />
                     {errors.description && (
@@ -291,20 +326,71 @@ export function OnboardingForm() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
           className="w-full h-4/6 flex flex-col items-center justify-center gap-y-3"
-        ></motion.div>
+        >
+          <div className="w-full h-full jetbrains p-8 flex gap-x-16 justify-center items-center">
+            <div className="flex flex-col gap-y-2 w-1/2 h-full justify-center items-end">
+              <label className="text-white text-2xl md:text-xl">
+                Contact Email
+              </label>
+              <input
+                type="email"
+                id="contactemail"
+                {...register("contactemail", { value: "" })}
+                className="text-white w-2/3 jetbrains font-semibold text-lg md:text-xl bg-[#222222] border-[3px] rounded-xl border-[#6A00F4] focus:ring-0  p-2"
+                placeholder="john@pholio.online (optional)"
+              />
+              {errors.contactemail && (
+                <p className="text-red-400 text-lg font-semibold">
+                  {errors.contactemail.message}
+                </p>
+              )}
+            </div>
+            <div className="flex flex-col gap-y-2 w-1/2 h-full justify-center items-start">
+              <label className="text-white text-2xl md:text-xl">
+                Contact Phone
+              </label>
+              <input
+                type="number"
+                id="contactphone"
+                {...register("contactphone")}
+                className="text-white w-2/3 jetbrains font-semibold text-lg md:text-xl bg-[#222222] border-[3px] rounded-xl border-[#6A00F4] focus:ring-0  p-2"
+                placeholder="1234567890 (optional)"
+              />
+              {errors.contactphone && (
+                <p className="text-red-400 text-lg font-semibold">
+                  {errors.contactphone.message}
+                </p>
+              )}
+            </div>
+          </div>
+        </motion.div>
       )}
-      <div className="w-1/2 h-1/6 self-center flex  p-8 justify-between items-center">
+
+      {currentStep === 3 && (
+        <motion.div
+          initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="w-full h-4/6 flex flex-col items-center justify-center gap-y-3"
+        >
+          <strong className="text-5xl text-white jetbrains">
+            click next nigger
+          </strong>
+        </motion.div>
+      )}
+
+      <div className="w-2/3 h-1/6 self-center flex  p-8 justify-between items-center">
         <button
           onClick={prev}
-          className={`bg-[#262262] ${
-            currentStep === 0 ? "cursor-not-allowed" : "hover:bg-[#322b8d]"
-          }   text-white text-2xl font-bold py-2 px-4 rounded-xl `}
+          className={`bg-[#6700ec] jetbrains active:scale-90 ${
+            currentStep === 0 ? "cursor-not-allowed" : "hover:bg-[#6600ecb9]"
+          }   text-white text-2xl font-bold py-2 px-4 rounded-lg `}
         >
           Previous
         </button>
         <button
           onClick={next}
-          className={`bg-[#262262] hover:bg-[#322b8d] text-white text-2xl font-bold py-2 px-4 rounded-xl `}
+          className={`bg-[#6700ec] jetbrains hover:bg-[#6600ecb9] active:scale-90 text-white text-2xl font-bold py-2 px-4 rounded-lg `}
         >
           Next
         </button>

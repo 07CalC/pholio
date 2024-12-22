@@ -12,6 +12,11 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        'inter': ['inter'],
+        'poppins': ['poppins'],
+        'pressStart': ['press-start-2p']
+      }
     },
   },
   
