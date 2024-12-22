@@ -4,13 +4,11 @@ import { OAuthSignInButtons } from "../login/oauthSignInButtons";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
-export default async function SignUpPage({
-    searchParams,
-}: {
-    searchParams: {
-        message: string
-}
-}) {
+
+type tParams = Promise<{ slug: string[] }>
+
+export default async function SignUpPage() {
+
   const supabase = await createClient()
     const {
       data: { user },
@@ -76,7 +74,7 @@ export default async function SignUpPage({
                   type="password"
                   name="password"
                 />
-                {searchParams.message && <p className="text-start text-red-500">{searchParams.message}</p>}
+                {/* {searchParams.message && <p className="text-start text-red-500">{searchParams.message}</p>} */}
               </div>
               <button
                 formAction={signup}
