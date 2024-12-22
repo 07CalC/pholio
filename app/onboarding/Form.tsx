@@ -59,16 +59,17 @@ export function OnboardingForm() {
 
   type FieldName = keyof inputs;
 
-  const [uploadedFile, setUploadedFile] = useState<any>(null);
+  const [uploadedFile, setUploadedFile] = useState<string | Blob | undefined>();
   // const [filename, setFilename] = useState("");
   const uploadPreset = process.env.NEXT_PUBLIC_UPLOAD_PRESET as string;
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 
-  const handleFileChange = (event: any) => {
+  const handleFileChange = (event: React.FormEvent<HTMLInputElement>) => {
     setImgUrl("");
-    setUploadedFile(event.target.files[0]);
+    const target = event.target as HTMLInputElement
+    setUploadedFile(target?.files?.[0]);
     // setFilename(event.target.files[0].name);
-    const file = event.target.files[0];
+    const file = target?.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -77,14 +78,12 @@ export function OnboardingForm() {
       reader.readAsDataURL(file);
     }
   };
-  const handleImgSubmit = async (event: any) => {
-   
-
-    event.preventDefault();
+  const handleImgSubmit = async () => {
+    console.log("handleImgSubmit");
 
     const formData = new FormData();
-
-    formData.append("file", uploadedFile);
+    if(uploadedFile){formData.append("file", uploadedFile);}
+    
     formData.append("upload_preset", uploadPreset);
 
     try {
@@ -115,7 +114,8 @@ export function OnboardingForm() {
 
     if (currentStep < steps.length) {
       if (currentStep === 1 && image !== null && imgUrl.length === 0) {
-        handleImgSubmit(event);
+        handleImgSubmit()
+        
       }
       if (currentStep === steps.length - 1) {
         handleSubmit(processForm)();
@@ -132,7 +132,6 @@ export function OnboardingForm() {
       setCurrentStep((step) => step - 1);
     }
   };
-
 
 
   return (

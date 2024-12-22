@@ -108,7 +108,7 @@ export default async function LoginPage({
         </div>
         <div className="w-full h-2/12 poppins flex justify-center items-center gap-x-2">
           <p className="text-white text-xl md:text-xl text-end">
-            Don't have an account?
+            Don&apos;t have an account?
           </p>
           <Link href={"/signup"}>
             <strong className="text-blue-600 text-xl md:text-2xl">
