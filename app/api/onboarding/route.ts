@@ -51,7 +51,8 @@ export async function POST(req: Request){
         console.log(error)
     }
 
-    const { data: { id } }: any = await supabase.from('portfolio').select('id').match({user_id: userId}).single()
+    const { data: userData } = await supabase.from('portfolio').select('id').match({user_id: userId}).single()
+    const id = userData?.id
     const { error: insertSectionError } = await supabase.from('section').insert({content: contentToInsert, portfolio_id: id, type: "intro"})
     if(insertSectionError){
         console.log(insertSectionError)
