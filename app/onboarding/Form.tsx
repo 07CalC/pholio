@@ -155,7 +155,6 @@ export function OnboardingForm() {
     }
   };
 
-  console.log(watch("username"));
 
   return (
     <div className="h-svh w-full flex flex-col bg-[#1b1b1b] bg-[linear-gradient(to_right,#505050_1px,transparent_1px),linear-gradient(to_bottom,#505050_1px,transparent_1px)] bg-[size:60px_60px]">
