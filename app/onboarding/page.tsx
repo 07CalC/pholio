@@ -4,11 +4,6 @@ import { Nunito_Sans } from "next/font/google";
 import { OnboardingForm } from "./Form";
 
 
-export function log(data: any){
-  console.log("triggered")
-  console.log(data)
-}
-
 
 const nunitoSans = Nunito_Sans({
     weight: "400",

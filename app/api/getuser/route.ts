@@ -1,7 +1,5 @@
 import { createClient } from "@/utils/supabase/server"
-import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient"
 import { NextResponse } from "next/server"
-import { any } from "zod"
 
 
 

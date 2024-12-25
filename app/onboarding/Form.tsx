@@ -71,12 +71,9 @@ export function OnboardingForm() {
   const { isUploadingImg, image, imgUrl, pfpUpload, handleFileChange } = useUploadImage();
   const {
     register,
-    handleSubmit,
-    reset,
     trigger,
     setValue,
     setError,
-    watch,
     getValues,
     formState: { errors },
   } = useForm<inputs>({
@@ -141,6 +138,7 @@ export function OnboardingForm() {
           JSON.stringify(form)
         );
         setIsLoading(false);
+        console.log(svResponse.data)
         return router.push("/dashboard");
       }
       setPreviousStep(currentStep);
