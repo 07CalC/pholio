@@ -4,6 +4,11 @@ import { Nunito_Sans } from "next/font/google";
 import { OnboardingForm } from "./Form";
 
 
+export function log(data: any){
+  console.log("triggered")
+  console.log(data)
+}
+
 
 const nunitoSans = Nunito_Sans({
     weight: "400",
@@ -17,7 +22,7 @@ export default async function Onboarding() {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) {
-    redirect("/");
+    redirect("/login");
   }
   const { data } = await supabase
     .from("user_profile")
@@ -25,7 +30,7 @@ export default async function Onboarding() {
     .match({ id: user?.id })
     .single();
   if (data?.onboarding) {
-    redirect("/");
+    redirect("/dashboard");
   }
 
 //   const handleContinue = async (e: any) => {

@@ -19,7 +19,7 @@ export const Info = () => {
         />
       </div>
       <div className="flex gap-y-5 flex-col justify-center my-4 lg:my-0 lg:items-start">
-        <div className="text-xl block lg:flex gap-x-2 gap-y-2 text-center lg:text-start">
+        <div className="text-xl flex lg:flex flex-col gap-x-2 gap-y-2 text-center lg:text-start">
           <div>
             <strong className="text-2xl lg:text-4xl ">Vinayak(CalC)</strong>{" "}
           </div>

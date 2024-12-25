@@ -76,7 +76,7 @@ export default async function LoginPage() {
                   className="text-white text-sm font-semibold w-5/6 text-end"
                   href="/signup"
                 >
-                  Forgot passord?
+                  Forgot password?
                 </a>
                 {/* {searchParams.message && (
                   <p className="text-red-600">{searchParams.message}</p>
