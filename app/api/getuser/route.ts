@@ -24,7 +24,7 @@ export async function POST(req:Request){
     .single()
 
 
-    const structuredData = data?.portfolio?.[0]?.section?.reduce((acc: Record<string, any>, section) => {
+    const structuredData = data?.portfolio?.[0]?.section?.reduce((acc: Record<string, string>, section) => {
         acc[section.type] = section.content
         return acc
     }, {})

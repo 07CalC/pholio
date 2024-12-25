@@ -8,7 +8,7 @@ export async function POST(req: Request){
 
     const supabase = await createClient()
 
-    const { data }: any = await supabase.from('user_profile').select('id').eq('username', username).single()
+    const { data } = await supabase.from('user_profile').select('id').eq('username', username).single()
     if(data?.id){
         return NextResponse.json(false, {status: 200})
     }

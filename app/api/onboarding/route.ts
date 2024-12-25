@@ -1,13 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
-
-
-export async function GET(req: Request, res: Response) {
-    console.log("hit api")
-    return NextResponse.json({message: "hello api"}, {status: 200})
-}
-
 export async function POST(req: Request){
     const body = await req.json()
 
@@ -33,7 +26,7 @@ export async function POST(req: Request){
    
     const userId = user.id
 
-    const { insertUserNameError } : any = await supabase.from('user_profile').update({ username: body.username }).match({ id: userId })
+    const { error: insertUserNameError } = await supabase.from('user_profile').update({ username: body.username }).match({ id: userId })
     if(insertUserNameError){
         return NextResponse.json({message: "internal server error" + insertUserNameError}, {status: 401})
     }
@@ -41,6 +34,7 @@ export async function POST(req: Request){
     const { data } = await supabase.from('portfolio').select('id').match({ user_id: userId }).single()
     if(data?.id){
         const { error } = await supabase.from('user_profile').update({ onboarding: true }).match({ id: userId })
+        console.log(error)
         return NextResponse.json({message: "user already has a portfolio"}, {status: 200})
     }
 
@@ -48,6 +42,9 @@ export async function POST(req: Request){
 
     if(!error){
         const { error } = await supabase.from('user_profile').update({ onboarding: true }).match({ id: userId })
+        if(error){
+            console.log(error)
+        }
     }
 
     if(error){
@@ -55,8 +52,7 @@ export async function POST(req: Request){
     }
 
     const { data: { id } }: any = await supabase.from('portfolio').select('id').match({user_id: userId}).single()
-    console.log(id)
-    const { insertSectionError }: any = await supabase.from('section').insert({content: contentToInsert, portfolio_id: id, type: "intro"})
+    const { error: insertSectionError } = await supabase.from('section').insert({content: contentToInsert, portfolio_id: id, type: "intro"})
     if(insertSectionError){
         console.log(insertSectionError)
     }
