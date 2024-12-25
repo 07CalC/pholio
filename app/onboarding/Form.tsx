@@ -1,20 +1,21 @@
 "use client";
 
 import { RxCross2 } from "react-icons/rx";
-import { useEffect, useRef, useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { onboardingSchema } from "../lib/onboardingSchema";
 import { motion } from "framer-motion";
-import axios, { AxiosRequestConfig } from "axios";
-
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { log } from "./page";
 import { FaCheck } from "react-icons/fa";
+import { useUploadImage } from "../hooks/useUploadImage";
+import { useCheckUsername } from "../hooks/useCheckUsername";
 
 type inputs = z.infer<typeof onboardingSchema>;
+type FieldName = keyof inputs;
 
 const steps = [
   {
@@ -31,30 +32,33 @@ const steps = [
     fields: ["contactemail", "contactphone"],
   },
   {
-    tagline:
-      "Pick the Perfect Template – Your Story, Your Style, Your Way!",
+    tagline: "Pick the Perfect Template – Your Story, Your Style, Your Way!",
     fields: ["template"],
   },
 ];
 
-const templates =[
+const templates = [
   {
     name: "modernDark",
-    imgLink: "https://res.cloudinary.com/dkhymc3li/image/upload/v1734938477/cu3k9c5fw9vs7bhqluge.png"
+    imgLink:
+      "https://res.cloudinary.com/dkhymc3li/image/upload/v1734938477/cu3k9c5fw9vs7bhqluge.png",
   },
   {
     name: "modernLight",
-    imgLink: "https://res.cloudinary.com/dkhymc3li/image/upload/v1734938477/cu3k9c5fw9vs7bhqluge.png"
+    imgLink:
+      "https://res.cloudinary.com/dkhymc3li/image/upload/v1734938477/cu3k9c5fw9vs7bhqluge.png",
   },
   {
     name: "scrub",
-    imgLink: "https://res.cloudinary.com/dkhymc3li/image/upload/v1734938477/cu3k9c5fw9vs7bhqluge.png"
+    imgLink:
+      "https://res.cloudinary.com/dkhymc3li/image/upload/v1734938477/cu3k9c5fw9vs7bhqluge.png",
   },
   {
     name: "darkMatter",
-    imgLink: "https://res.cloudinary.com/dkhymc3li/image/upload/v1734938477/cu3k9c5fw9vs7bhqluge.png"
+    imgLink:
+      "https://res.cloudinary.com/dkhymc3li/image/upload/v1734938477/cu3k9c5fw9vs7bhqluge.png",
   },
-]
+];
 
 export function OnboardingForm() {
   const [selectedTemplate, setSelectedTemplate] = useState<string>("darkMatter");
@@ -62,14 +66,9 @@ export function OnboardingForm() {
   const [previousStep, setPreviousStep] = useState<number>(0);
   const [currentStep, setCurrentStep] = useState<number>(0);
   const delta = currentStep - previousStep;
-  const pfpUpload = useRef<HTMLInputElement>(null);
-  const [image, setImage] = useState<string | ArrayBuffer | null>(null);
-  const [imgUrl, setImgUrl] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [isUploadingImg, setIsUploadingImg] = useState<boolean>(false)
-  const [isCheckingUserName, setIsCheckingUserName] = useState<boolean>(false)
-  const [userNameAvailabe, setUserNameAavailable] = useState<boolean>(true)
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { username, setUsername, isCheckingUserName, userNameAvailabe } = useCheckUsername();
+  const { isUploadingImg, image, imgUrl, pfpUpload, handleFileChange } = useUploadImage();
   const {
     register,
     handleSubmit,
@@ -85,96 +84,26 @@ export function OnboardingForm() {
   });
 
 
-  
+
+  useEffect(() => {
+    setValue("template", selectedTemplate);
+  }, [selectedTemplate]);
+
+  useEffect(() => {
+    setValue("username", username);
+  }, [username]);
 
   useEffect(() => {
     setValue("displayimage", imgUrl);
-    setValue("template", selectedTemplate)
-  }, [imgUrl, selectedTemplate]);
-
-
-  
-
-  const checkUserName = async (username: string) => {
-    setIsCheckingUserName(true)
-    const svResponse = await axios.post('/api/checkUsername',
-      {username: username}
-    )
-    setUserNameAavailable(svResponse.data)
-    setIsCheckingUserName(false)
-  }
+  }, [imgUrl]);
 
   useEffect(() => {
-    if(watch('username')){
-    setTimeout(() => {
-      checkUserName(watch('username').toLowerCase())
-    }, 1000);
-  }
-  },[watch('username')])
-
-  useEffect(()=>{
     const refreshUsernameError = async () => {
-      await trigger('username')
-    }
-    refreshUsernameError()
-  }, [userNameAvailabe])
+      await trigger("username");
+    };
+    refreshUsernameError();
+  }, [userNameAvailabe]);
 
-
-  type FieldName = keyof inputs;
-
-  const [uploadedFile, setUploadedFile] = useState<string | Blob | undefined>();
-  // const [filename, setFilename] = useState("");
-  const uploadPreset = process.env.NEXT_PUBLIC_UPLOAD_PRESET as string;
-  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-
-  const handleFileChange = async (event: React.FormEvent<HTMLInputElement>) => {
-    setImgUrl("");
-    const target = event.target as HTMLInputElement
-    setUploadedFile(target.files?.[0]);
-    // setFilename(event.target.files[0].name);
-    const file = target?.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-    
-  };
-
-  
-  const handleImgSubmit = async () => {
-    console.log("handleImgSubmit");
-    
-
-    const formData = new FormData();
-    if(uploadedFile){formData.append("file", uploadedFile);}
-    else{
-      return
-    }
-    
-    formData.append("upload_preset", uploadPreset);
-
-    try {setIsUploadingImg(true)
-      setIsUploadingImg(true)
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/" + cloudName + "/image/upload",
-        formData
-      );
-      if (response.statusText === "OK") {
-        setImgUrl(response.data.secure_url);
-        setIsUploadingImg(false)
-      }
-        setIsUploadingImg(false)
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    handleImgSubmit()
-  },[uploadedFile])
 
 
 
@@ -184,42 +113,40 @@ export function OnboardingForm() {
 
     if (!output) return;
 
-    if(!userNameAvailabe){
-      setError('username', {type: 'custom', message: 'username not available'})
-      return
+    if (!userNameAvailabe) {
+      setError("username", {
+        type: "custom",
+        message: "username not available",
+      });
+      return;
     }
-    
 
     if (currentStep < steps.length) {
-      // if (currentStep === 1 && image !== null && imgUrl.length === 0) {
-      //   handleImgSubmit()
-      // }
       if (currentStep === steps.length - 1) {
-        const form =  {
-          username : getValues("username").toLowerCase(),
-          displayname : getValues("displayname"),
-          age : getValues("age"),
-          gender : getValues("gender"),
-          displayimage : getValues("displayimage"),
-          professionaltitle : getValues("professionaltitle"),
-          description : getValues("description"),
-          contactemail : getValues("contactemail"),
-          contactphone : getValues("contactphone"),
-          template: getValues("template")
-        }
-        setIsLoading(true)
-       const svResponse = await axios.post('/api/onboarding',
-        JSON.stringify(form)
-       )
-       setIsLoading(false)
-       return router.push('/dashboard')
+        const form = {
+          username: getValues("username").toLowerCase(),
+          displayname: getValues("displayname"),
+          age: getValues("age"),
+          gender: getValues("gender"),
+          displayimage: getValues("displayimage"),
+          professionaltitle: getValues("professionaltitle"),
+          description: getValues("description"),
+          contactemail: getValues("contactemail"),
+          contactphone: getValues("contactphone"),
+          template: getValues("template"),
+        };
+        setIsLoading(true);
+        const svResponse = await axios.post(
+          "/api/onboarding",
+          JSON.stringify(form)
+        );
+        setIsLoading(false);
+        return router.push("/dashboard");
       }
       setPreviousStep(currentStep);
       setCurrentStep((step) => step + 1);
     }
   };
-
-   
 
   const prev = () => {
     if (currentStep > 0) {
@@ -227,6 +154,8 @@ export function OnboardingForm() {
       setCurrentStep((step) => step - 1);
     }
   };
+
+  console.log(watch("username"));
 
   return (
     <div className="h-svh w-full flex flex-col bg-[#1b1b1b] bg-[linear-gradient(to_right,#505050_1px,transparent_1px),linear-gradient(to_bottom,#505050_1px,transparent_1px)] bg-[size:60px_60px]">
@@ -252,10 +181,7 @@ export function OnboardingForm() {
           transition={{ duration: 0.3, ease: "easeInOut" }}
           className="w-full h-4/6 flex flex-col p-10 items-center justify-center gap-y-3"
         >
-          <form
-            className="w-full flex items-center justify-center gap-x-2"
-            
-          >
+          <form className="w-full flex items-center justify-center gap-x-2">
             <p className="text-[#6700ec] jetbrains drop-shadow-xl bg-cyan-500 bg-clip-text font-semibold text-xl md:text-4xl text-center">
               pholio.online/
             </p>
@@ -264,17 +190,27 @@ export function OnboardingForm() {
               type="text"
               id="username"
               {...register("username")}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-1/5 text-white  jetbrains font-semibold text-2xl md:text-3xl bg-[#222222] border-[3px] rounded-xl border-[#6A00F4] focus:ring-0  p-1 px-2"
               placeholder="username"
             />
-            {isCheckingUserName &&
-            <img src='https://upload.wikimedia.org/wikipedia/commons/a/ad/YouTube_loading_symbol_3_%28transparent%29.gif' className="w-10" />
-}
+            {isCheckingUserName && (
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/ad/YouTube_loading_symbol_3_%28transparent%29.gif"
+                className="w-10"
+              />
+            )}
             {!isCheckingUserName && userNameAvailabe && (
-              <FaCheck title="username available" className="text-4xl text-green-500"/>
+              <FaCheck
+                title="username available"
+                className="text-4xl text-green-500"
+              />
             )}
             {!isCheckingUserName && !userNameAvailabe && (
-              <RxCross2 title="username not available" className="text-5xl font-bold text-red-500" />
+              <RxCross2
+                title="username not available"
+                className="text-5xl font-bold text-red-500"
+              />
             )}
           </form>
           {errors.username && (
@@ -308,16 +244,21 @@ export function OnboardingForm() {
                 onClick={() => pfpUpload.current?.click()}
                 className="w-52 bg-[#1b1b1b] relative h-52 rounded-full border-4 border-[#6A00F4]"
               >
-                <img src={image?.toString()} className="w-full h-full object-cover rounded-full z-10" />
+                <img
+                  src={image?.toString()}
+                  className="w-full h-full object-cover rounded-full z-10"
+                />
                 {isUploadingImg && (
                   <>
-                  <div className="absolute inset-0 bg-gray-700 opacity-60 rounded-full"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/YouTube_loading_symbol_3_%28transparent%29.gif" className="z-20 rounded-full w-1/2 h-1/2" />
-                </div>
-                </>
+                    <div className="absolute inset-0 bg-gray-700 opacity-60 rounded-full"></div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/a/ad/YouTube_loading_symbol_3_%28transparent%29.gif"
+                        className="z-20 rounded-full w-1/2 h-1/2"
+                      />
+                    </div>
+                  </>
                 )}
-                
               </div>
 
               {errors.displayimage && (
@@ -327,10 +268,7 @@ export function OnboardingForm() {
               )}
             </div>
             <div className="w-2/3 h-full flex flex-col justify-center items-center">
-              <form
-                className="w-full h-full flex flex-col gap-y-4 p-5 justify-center items-center"
-                
-              >
+              <form className="w-full h-full flex flex-col gap-y-4 p-5 justify-center items-center">
                 <div className="h-1/2 flex items-center gap-x-16  justify-center w-full">
                   <div className="flex flex-col gap-y-2 w-1/2 h-full">
                     <label className="text-white text-2xl md:text-xl">
@@ -485,17 +423,36 @@ export function OnboardingForm() {
         >
           <div className="w-full p-4 grid grid-cols-4 h-full jetbrains justify-center items-center gap-5">
             {templates.map((template, index) => (
-              <div key={index} onClick={()=>setSelectedTemplate(template.name as string)} className={`flex cursor-pointer w-full bg-white/10 rounded-xl border-2 ${selectedTemplate === template.name as string ? 'border-blue-600 bg-gradient-to-r from-[#6A00F4] to-[#9C27B0] bg-opacity-100' : 'border-[#6A00F4]'} bg-opacity-5 backdrop-filter backdrop-blur-lg hover:scale-110  flex-col gap-y-2 p-5 justify-center items-center`}>
-              <Image alt="image" src={template.imgLink} width={1920} height={964} className="w-full rounded-xl" />
-              <div className="flex px-5 w-full text-white justify-between items-center">
-                <strong className="text-xl">{template.name}</strong>
-                <a target="blank" className="text-sm rounded-xl underline bg-[#6700ec] p-2" href="http://localhost:3000/preview/name">Preview↗</a>
+              <div
+                key={index}
+                onClick={() => setSelectedTemplate(template.name as string)}
+                className={`flex cursor-pointer w-full bg-white/10 rounded-xl border-2 ${
+                  selectedTemplate === (template.name as string)
+                    ? "border-blue-600 bg-gradient-to-r from-[#6A00F4] to-[#9C27B0] bg-opacity-100"
+                    : "border-[#6A00F4]"
+                } bg-opacity-5 backdrop-filter backdrop-blur-lg hover:scale-110  flex-col gap-y-2 p-5 justify-center items-center`}
+              >
+                <Image
+                  alt="image"
+                  src={template.imgLink}
+                  width={1920}
+                  height={964}
+                  className="w-full rounded-xl"
+                />
+                <div className="flex px-5 w-full text-white justify-between items-center">
+                  <strong className="text-xl">{template.name}</strong>
+                  <a
+                    target="blank"
+                    className="text-sm rounded-xl underline bg-[#6700ec] p-2"
+                    href="http://localhost:3000/preview/name"
+                  >
+                    Preview↗
+                  </a>
+                </div>
               </div>
-            </div>
             ))}
-            
-            </div>
-            {/* {errors.template && (
+          </div>
+          {/* {errors.template && (
               <p className="text-red-400 text-lg font-semibold">
               {errors.template.message}
             </p>
