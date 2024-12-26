@@ -31,8 +31,8 @@ export async function POST(req: Request){
         return NextResponse.json({message: "internal server error" + insertUserNameError}, {status: 401})
     }
 
-    const { data } = await supabase.from('portfolio').select('id').match({ user_id: userId }).single()
-    if(data?.id){
+    const { data: portfolioData } = await supabase.from('portfolio').select('id').match({ user_id: userId }).single()
+    if(portfolioData?.id){
         const { error } = await supabase.from('user_profile').update({ onboarding: true }).match({ id: userId })
         console.log(error)
         return NextResponse.json({message: "user already has a portfolio"}, {status: 200})
