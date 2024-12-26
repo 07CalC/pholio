@@ -35,7 +35,7 @@ export const Info = () => {
           currently learning Rust <br />
           Building{" "}
           <a
-            href="https://pholio.batua.site"
+            href="https://pholio.online"
             target="_blank"
             rel="noopener noreferrer"
           >

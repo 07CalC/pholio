@@ -9,7 +9,7 @@ export const PoweredByPholio = () => {
       >
         <a
       className="flex gap-x-1 md:self-start"
-      href="https://pholio.batua.site/"
+      href="https://pholio.online/"
       target="_blank"
       rel="noopener noreferrer"
     >
