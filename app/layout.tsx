@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "Pholio",
   description: "Build portfolio in minutes",
   icons: {
-    icon: "./logo.png",
+    icon: "https://res.cloudinary.com/dkhymc3li/image/upload/v1735216898/t3irkgz3pa3e6iqb7l7y.png",
 
   }
 };
