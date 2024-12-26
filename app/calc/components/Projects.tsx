@@ -10,7 +10,7 @@ export const Projects = () => {
       title: "Pholio (under development)",
       description:
         "Pholio is a customizable portfolio website builder designed to help individuals showcase their skills, projects, and achievements in a professional and visually stunning way. With pre-built templates tailored for developers, designers, writers, and more, Pholio allows users to create unique portfolios effortlessly.",
-      LiveLink: "https://beta.pholio.batua.site",
+      LiveLink: "https://pholio.online",
       GithubLink: "https://github.com/07CalC/Pholio",
       FigmaLink: "",
       imageLink:
