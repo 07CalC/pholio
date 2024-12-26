@@ -3,8 +3,7 @@ import { RiLinkedinBoxLine } from "react-icons/ri";
 import { RiInstagramLine } from "react-icons/ri";
 import { RiGithubFill } from "react-icons/ri";
 import { RiTwitterXLine } from "react-icons/ri";
-import { RiDiscordLine } from "react-icons/ri";
-import { RiYoutubeLine } from "react-icons/ri";
+import { MdOutlineMailOutline } from "react-icons/md";
 
 export const Info = () => {
   return (
@@ -21,16 +20,16 @@ export const Info = () => {
       <div className="flex gap-y-5 flex-col justify-center my-4 lg:my-0 lg:items-start">
         <div className="text-xl flex lg:flex flex-col gap-x-2 gap-y-2 text-center lg:text-start">
           <div>
-            <strong className="text-2xl lg:text-4xl ">Vinayak(CalC)</strong>{" "}
+            <strong className="text-4xl lg:text-6xl ">Vinayak(CalC)</strong>{" "}
           </div>
           <div>
-            <strong className="text-[1rem] lg:text-xl text-slate-300">
+            <strong className="text-xl lg:text-2xl text-slate-300">
               {" "}
               19M (he/him)
             </strong>
           </div>
         </div>
-        <div className="text-lg text-center lg:text-start lg:text-2xl ">
+        <div className="text-xl text-center lg:text-start lg:text-3xl ">
           Hobbyist Web Developer <br />
           into new technologies <br />
           currently learning Rust <br />
@@ -40,45 +39,30 @@ export const Info = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <strong className="text-lg lg:text-2xl underline">Pholio↗</strong>
+            <strong className="text-xl lg:text-2xl underline">Pholio↗</strong>
           </a>
         </div>
-        <div className="self-start w-full text-lg flex text-center lg:text-start flex-col">
-          <div className="text-[1rem] break-words lg:text-xl underline">
-            <a href="mailto:maheshwarivinayak90@gmail.com">
-              maheshwarivinayak90@gmail.com
+        
+        <div className="lg:self-start self-center flex gap-x-5 ">
+        <a href="mailto:maheshwarivinayak90@gmail.com">
+              <MdOutlineMailOutline className="text-4xl lg:text-5xl cursor-pointer" />
             </a>
-          </div>
-
-          <strong className="text-lg lg:text-xl"></strong>
-          <a>
-            <strong className="underline cursor-pointer text-[1rem] lg:text-xl">
-              Resume↗
-            </strong>
-          </a>
-        </div>
-        <div className="self-start flex gap-x-5 ">
           <a
             href="https://www.linkedin.com/in/maheshwarivinayak"
             target="_blank"
           >
-            <RiLinkedinBoxLine className="text-3xl lg:text-5xl cursor-pointer" />
+            <RiLinkedinBoxLine className="text-4xl lg:text-5xl cursor-pointer" />
           </a>
           <a href="https://www.instagram.com/_kysvin/" target="_blank">
-            <RiInstagramLine className="text-3xl lg:text-5xl cursor-pointer" />
+            <RiInstagramLine className="text-4xl lg:text-5xl cursor-pointer" />
           </a>
           <a href="https://x.com/Not_CalC" target="_blank">
-            <RiTwitterXLine className="text-3xl lg:text-5xl cursor-pointer" />
+            <RiTwitterXLine className="text-4xl lg:text-5xl cursor-pointer" />
           </a>
           <a href="https://github.com/07CalC" target="_blank">
-            <RiGithubFill className="text-3xl lg:text-5xl cursor-pointer" />
+            <RiGithubFill className="text-4xl lg:text-5xl cursor-pointer" />
           </a>
-          <a>
-            <RiDiscordLine className="text-3xl hidden lg:text-5xl cursor-pointer" />
-          </a>
-          <a>
-            <RiYoutubeLine className="text-3xl hidden lg:text-5xl cursor-pointer" />
-          </a>
+          
         </div>
       </div>
     </div>

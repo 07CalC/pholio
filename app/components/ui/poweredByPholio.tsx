@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export const PoweredByPholio = () => {
   return (
     
@@ -11,7 +13,7 @@ export const PoweredByPholio = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-        <img src="../favicon.ico" alt="logo" className="w-5 h-5" />
+        <Image width={486} height={514} src="https://res.cloudinary.com/dkhymc3li/image/upload/v1735216898/t3irkgz3pa3e6iqb7l7y.png" alt="logo" className="w-5 h-5" />
         <p>powered by Pholio</p>
         </a>
       </div>

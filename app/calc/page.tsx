@@ -6,12 +6,13 @@ import { Info } from "./components/Info";
 
 import { Projects } from "./components/Projects";
 import { Skills } from "./components/Skills";
+import { recursive } from "../fonts/Fonts";
 
 
 export default function Calc() {
   return (
     <div
-      className={`bg-[#1f1e1e] bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:50px_50px] pb-16 min-h-svh h-full w-full text-white text-3xl font-bold flex flex-col items-center  align-center pressStart`}
+      className={`${recursive.className} bg-[#1b1b1b] bg-[linear-gradient(to_right,#505050_1px,transparent_1px),linear-gradient(to_bottom,#505050_1px,transparent_1px)] bg-[size:60px_60px] pb-16 min-h-svh h-full w-full text-white text-3xl font-bold flex flex-col items-center  align-center`}
     >
       <div className="lg:w-1/2 w-11/12 fixed mt-3 lg:mt-5">
         <Navbar />
@@ -24,11 +25,11 @@ export default function Calc() {
       </div>
       
       <div className="w-full">
-          < Projects />
+          <Skills />
         </div>
 
-        <div className="w-full">
-        <Skills />
+      <div className="w-full mt-16">
+        < Projects />
       </div>
 
       

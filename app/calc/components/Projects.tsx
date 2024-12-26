@@ -2,8 +2,6 @@
 import React from "react";
 import { FiFigma } from "react-icons/fi";
 import { RiGithubFill } from "react-icons/ri";
-import { SiTypescript } from "react-icons/si";
-import { TbBrandTypescript } from "react-icons/tb";
 import { FiGitlab } from "react-icons/fi";
 
 export const Projects = () => {
@@ -20,12 +18,28 @@ export const Projects = () => {
       techUsed : [
           {
             name: "Next.js",
-            icon: TbBrandTypescript ,
+            imgLink: "https://www.svgrepo.com/show/378440/nextjs-fill.svg" ,
           },
           {
-            name: "TailwindCSS",
-            icon: SiTypescript ,
+            name: "TypeScript",
+            imgLink: "https://www.svgrepo.com/show/439022/typescript.svg" ,
           },
+          {
+            name: "tailwindCSS",
+            imgLink: "https://www.svgrepo.com/show/374118/tailwind.svg"
+          },
+          {
+            name: "supabase",
+            imgLink: "https://seeklogo.com/images/S/supabase-logo-DCC676FFE2-seeklogo.com.png"
+          },
+          {
+            name: "cloudinary",
+            imgLink: "https://www.svgrepo.com/show/353566/cloudinary.svg"
+          },
+          {
+            name: "Postgresql",
+            imgLink: "https://www.svgrepo.com/show/354200/postgresql.svg",
+          }
         ],
     },
     {
@@ -37,6 +51,24 @@ export const Projects = () => {
       FigmaLink: "",
       imageLink:
         "https://res.cloudinary.com/dkhymc3li/image/upload/v1734267156/fomwfubs4t4werunbjfz.png",
+      techUsed: [
+        {
+          name: "ReactJs",
+          imgLink: "https://www.svgrepo.com/show/452092/react.svg"
+        },
+        {
+          name: "NodeJs",
+          imgLink: "https://www.svgrepo.com/show/452075/node-js.svg"
+        },
+        {
+          name: "MongoDB",
+          imgLink: "https://www.svgrepo.com/show/373845/mongo.svg"
+        },
+        {
+          name: "tailwindCSS",
+          imgLink: "https://www.svgrepo.com/show/374118/tailwind.svg"
+        }
+      ]
     },
     {
         title: "JeeLore",
@@ -46,6 +78,28 @@ export const Projects = () => {
         GithubLink: "https://github.com/07CalC/jeelore",
         FigmaLink: "",
         imageLink: "https://res.cloudinary.com/dkhymc3li/image/upload/v1734267902/f4qbgiwkqj91up6gztce.png",
+        techUsed: [
+          {
+            name: "ReactJs",
+            imgLink: "https://www.svgrepo.com/show/452092/react.svg"
+          },
+          {
+            name: "NodeJs",
+            imgLink: "https://www.svgrepo.com/show/452075/node-js.svg"
+          },
+          {
+            name: "MongoDB",
+            imgLink: "https://www.svgrepo.com/show/373845/mongo.svg"
+          },
+          {
+            name: "tailwindCSS",
+            imgLink: "https://www.svgrepo.com/show/374118/tailwind.svg"
+          },
+          {
+            name: "cloudinary",
+            imgLink: "https://www.svgrepo.com/show/353566/cloudinary.svg"
+          }
+        ]
     },
     {
         title: "ORCR",
@@ -54,19 +108,25 @@ export const Projects = () => {
         GithubLink: "https://github.com/07CalC/orcr",
         FigmaLink: "",
         imageLink: "https://res.cloudinary.com/dkhymc3li/image/upload/v1734268091/ol7ncm8jaljkwujgz5dt.png",
+        techUsed: [
+          {
+            name: "ReactJs",
+            imgLink: "https://www.svgrepo.com/show/452092/react.svg"
+          },
+        ],
         GitlabLink: ""
     }
   ];
 
   return (
-    <div className="w-full lg:px-20 px-4 flex flex-col justify-center">
-      <strong className="text-[1.3rem] px-5 lg:px-0 self-start  lg:text-3xl underline">Projects</strong>
-      <div className="flex flex-col py-6 lg:py-16 gap-y-8 lg:gap-y-5">
+    <div className="w-full lg:px-40  flex flex-col gap-y-6 justify-center">
+       <strong className="text-2xl px-5 self-start lg:text-5xl underline">Projects</strong>
+      <div className="flex flex-col py-5  gap-y-8 lg:gap-y-5 bg-[#2d2d2d] lg:rounded-xl">
         {projects.map((project, index) => (
-          <div key={index} className={`${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} flex flex-col-reverse lg:flex gap-y-4 gap-x-5 p-2 lg:py-5 lg:px-5 justify-center items-center bg-[#2d2d2d] rounded-xl`}>
+          <div key={index} className={`${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} ${index === projects.length - 1 ? "border-b-0" : "border-b-2"} border-gray-400 flex flex-col-reverse lg:flex gap-y-4 gap-x-5 p-2 lg:py-5 lg:px-5 justify-center items-center `}>
             <div className="flex flex-col lg:gap-y-5 w-full lg:w-2/3 self-auto">
-              <strong className="text-2xl lg:text-3xl ">{project.title}</strong>
-              <p className="text-lg font-mono">{project.description}</p>
+              <strong className="text-xl lg:text-3xl ">{project.title}</strong>
+              <p className="text-lg lg:text-xl font-mono">{project.description}</p>
               <div className="flex gap-x-2 lg:sgap-x-5">
                 {project.LiveLink && (
                     <a
@@ -118,16 +178,12 @@ export const Projects = () => {
               </div>
             </div>
             {project.imageLink && (
-                <div className="flex rounded-xl flex-col h-full lg:w-3/5 gap-y-6">
+                <div className="flex rounded-xl flex-col h-full lg:w-3/5 gap-y-3">
                 <img src={project.imageLink} alt="image" className="rounded-xl" />
-                <div className="flex gap-x-2 items-center justify-center">
-                    {/* {project.techUsed?.map((tech, index) => {
-                      const Icon: React.ComponentType<any> = tech.icon;
-                      return (
-                        <Icon key={index} className="text-2xl"/>
-                      )
-})} */}
-                    <img src="https://www.svgrepo.com/show/439022/typescript.svg" className="w-8 h-8"/>
+                <div className="flex gap-x-2 items-center justify-start lg:justify-center">
+                    {project.techUsed?.map((tech, index) => (
+                      <img key={index} title={tech.name} src={tech.imgLink} alt="icon" className="lg:w-10 w-7 h-7 lg:h-10 hover:scale-105" />
+                    ))}
                     
                   </div>
               </div>
