@@ -1,9 +1,7 @@
 
 import { Navbar } from "./components/Navbar";
-
 import { PoweredByPholio } from "../components/ui/poweredByPholio";
 import { Info } from "./components/Info";
-
 import { Projects } from "./components/Projects";
 import { Skills } from "./components/Skills";
 import { recursive } from "../fonts/Fonts";
