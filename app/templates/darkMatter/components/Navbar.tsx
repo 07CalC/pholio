@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const Navbar = ({ content }: any) => {
+export const Navbar = ({ content }: {content: string | undefined}) => {
   return (
     <div className="w-11/12 lg:w-1/2 gap-x-12 flex fixed justify-between top-8 bg-black bg-opacity-10 border border-[#505050] backdrop-blur-lg p-2 px-3 rounded-full lg:px-5">
       <Link href={"/calc"} className="text-[1rem] text-[#efeeee] lg:text-xl">

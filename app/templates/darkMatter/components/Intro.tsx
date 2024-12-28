@@ -8,8 +8,6 @@ import { RiTwitterXLine } from "react-icons/ri";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { mockDataSchema } from "@/app/preview/mockData";
 
-const description =
-  "currently hacking things around at flora while also studying about computers";
 
 export default function Intro({
   content,
