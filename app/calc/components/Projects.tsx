@@ -18,7 +18,7 @@ export const Projects = () => {
       techUsed : [
           {
             name: "Next.js",
-            imgLink: "https://www.svgrepo.com/show/378440/nextjs-fill.svg" ,
+            imgLink: "https://res.cloudinary.com/dkhymc3li/image/upload/v1735388059/fn7eauiypwssdrb5hevv.png" ,
           },
           {
             name: "TypeScript",

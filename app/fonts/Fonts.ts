@@ -4,6 +4,7 @@ import { Ysabeau_SC } from "next/font/google";
 import { Finger_Paint } from "next/font/google";
 import { Rubik_Vinyl } from "next/font/google";
 import { Recursive } from "next/font/google";
+import { Inter } from "next/font/google";
 
 export const pressStart2P = Press_Start_2P({
     weight: "400",
@@ -31,6 +32,11 @@ export const ysabeauSc = Ysabeau_SC({
 });
 
 export const recursive = Recursive({
+    weight: "400",
+    subsets: ["latin"],
+});
+
+export const inter = Inter({
     weight: "400",
     subsets: ["latin"],
 });

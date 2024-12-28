@@ -36,7 +36,7 @@ export async function OAuthLogin(provider: Provider) {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider,
     options: {
-      redirectTo: 'https://beta.pholio.batua.site/auth/callback',
+      redirectTo: 'http://localhost:3000/auth/callback',
     },
   });
   if (error) {
