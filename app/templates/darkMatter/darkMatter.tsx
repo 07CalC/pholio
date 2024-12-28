@@ -6,6 +6,7 @@ import { Projects } from "./components/Projects";
 import { Education } from "./components/Education";
 import { Experience } from "./components/Experience";
 import { mockDataSchema } from "@/app/preview/mockData";
+import { PoweredByPholio } from "@/app/components/ui/poweredByPholio";
 
 export default function DarkMatter({ data }: { data: mockDataSchema }) {
   return (
@@ -59,6 +60,7 @@ export default function DarkMatter({ data }: { data: mockDataSchema }) {
       )}
 
       <div className="w-full h-20"></div>
+      <PoweredByPholio />
     </div>
   );
 }
