@@ -1,4 +1,4 @@
-import { encodeSans, ptSerif } from "@/app/fonts/Fonts";
+import { encodeSans } from "@/app/fonts/Fonts";
 import { Navbar } from "./components/Navbar";
 import { mockDataSchema } from "@/app/preview/mockData";
 import { Intro } from "./components/Intro";

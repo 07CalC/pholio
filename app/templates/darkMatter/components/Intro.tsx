@@ -49,8 +49,8 @@ export default function Intro({
         <Markdown
           remarkPlugins={[gfm]}
           className="text-[#c4c4c4] text-lg lg:text-xl"
-          children={content?.extraDetails}
-          />
+          
+          >{content?.extraDetails}</Markdown>
       </div>
       <div className="flex gap-x-5">
         {content?.contactmail && (

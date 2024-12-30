@@ -44,7 +44,7 @@ export const Intro = ({ content }: { content: mockDataSchema["intro"] }) => {
         <div className="text-xl flex lg:flex flex-col gap-x-2 gap-y-2 text-center lg:text-start">
           <div className="lg:flex gap-x-4 justify-center items-center">
             <div className="flex text-center justify-center w-full lg:w-auto lg:text-start gap-x-2 items-center">
-              <p className="text-4xl text-white">I'M</p>
+              <p className="text-4xl text-white">I&apos;M</p>
               <strong className="text-4xl lg:text-6xl text-[#e7c66a]">
                 {content?.displayname}
               </strong>
@@ -63,9 +63,9 @@ export const Intro = ({ content }: { content: mockDataSchema["intro"] }) => {
         <div className="text-lg text-center lg:text-start lg:text-2xl text-[#c4c4c4]">
           {content?.description} <br />
           <Markdown
-            children={content?.extraDetails}
+            
             remarkPlugins={[remarkGfm]}
-          />
+          >{content?.extraDetails}</Markdown>
         </div>
 
         {content?.contactmail && (
