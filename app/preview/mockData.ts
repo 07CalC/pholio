@@ -72,7 +72,7 @@ export const mockData: mockDataSchema = {
     {
       name: "supabase",
       imgLink:
-        "https://seeklogo.com/images/S/supabase-logo-DCC676FFE2-seeklogo.com.png",
+        "https://res.cloudinary.com/dkhymc3li/image/upload/v1735494077/ssawvwnzj8hwpk8bxnv9.png",
     },
     {
       name: "Postgresql",
@@ -125,7 +125,7 @@ export const mockData: mockDataSchema = {
         {
           name: "supabase",
           imgLink:
-            "https://seeklogo.com/images/S/supabase-logo-DCC676FFE2-seeklogo.com.png",
+            "https://res.cloudinary.com/dkhymc3li/image/upload/v1735494077/ssawvwnzj8hwpk8bxnv9.png",
         },
         {
           name: "cloudinary",
