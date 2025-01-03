@@ -1,11 +1,18 @@
 
+
 import { Metadata } from "next";
 import { mockData } from "../preview/mockData";
 import DarkMatter from "../templates/darkMatter/darkMatter";
 import { Slate } from "../templates/slate/slate";
 import { nithinData } from "./NithinData";
 
-export async function generateMetadata({ params }: { params: { username: string } }) {
+
+type metaProps = {
+    params: Promise<{ username: string }>
+}
+
+
+export async function generateMetadata({ params }: metaProps): Promise<Metadata> {
     const { username } = await params
     return {
         title: username || "Pholio",
