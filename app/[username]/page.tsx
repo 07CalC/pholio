@@ -5,7 +5,7 @@ import DarkMatter from "../templates/darkMatter/darkMatter";
 import { Slate } from "../templates/slate/slate";
 import { nithinData } from "./NithinData";
 
-export async function generateMetadata({ params }: { params: { username: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { username: string } }) {
     const { username } = await params
     return {
         title: username || "Pholio",
