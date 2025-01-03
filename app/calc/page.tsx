@@ -7,8 +7,10 @@ import { Skills } from "./components/Skills";
 import { recursive } from "../fonts/Fonts";
 
 
-export default function Calc() {
+export default async function Calc() {
+
   return (
+
     <div
       className={`${recursive.className} bg-[#1b1b1b] bg-[linear-gradient(to_right,#505050_1px,transparent_1px),linear-gradient(to_bottom,#505050_1px,transparent_1px)] bg-[size:60px_60px] pb-16 min-h-svh h-full w-full text-white text-3xl font-bold flex flex-col items-center  align-center`}
     >

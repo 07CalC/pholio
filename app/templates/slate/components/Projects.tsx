@@ -18,11 +18,14 @@ export const Projects = ({
             key={key}
             className="flex flex-col gap-y-4 bg-[#3d3e42] p-10 rounded-xl"
           >
-            <img
-              src={project.imageLink}
-              alt={project.title}
-              className="w-full h-full rounded-xl"
-            />
+            {project.imageLink !== "" && project.imageLink && (
+              <img
+                src={project.imageLink}
+                alt={project.title}
+                className="w-full h-full rounded-xl"
+              />
+            )}
+
             <div className="lg:text-2xl text-xl text-white"></div>
             <strong className="lg:text-2xl text-xl text-white">
               {project.title}

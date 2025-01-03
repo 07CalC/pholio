@@ -7,6 +7,8 @@ import { Experience } from "./components/Experience";
 import { PoweredByPholio } from "@/app/components/ui/poweredByPholio";
 import { Projects } from "./components/Projects";
 import { Education } from "./components/Education";
+import { About } from "./components/About";
+import { Achievement } from "./components/Achievement";
 
 export const Slate = ({ data }: { data: mockDataSchema }) => {
   return (
@@ -18,10 +20,18 @@ export const Slate = ({ data }: { data: mockDataSchema }) => {
       </div>
       <div className="w-full h-20"></div>
       <div className="w-full flex justify-center items-center"></div>
+
       {data.intro && (
         <>
           <div className="w-full flex justify-center items-center">
             <Intro content={data.intro} />
+          </div>
+        </>
+      )}
+      {data.about && (
+        <>
+          <div className="w-full flex justify-center items-center">
+            <About content={data.about} />
           </div>
         </>
       )}
@@ -51,6 +61,13 @@ export const Slate = ({ data }: { data: mockDataSchema }) => {
         <>
           <div className="w-full flex justify-center items-center bg-[#3d3e42]">
             <Education content={data.education} />
+          </div>
+        </>
+      )}
+      {data.achievement && (
+        <>
+          <div className="w-full flex justify-center items-center">
+            <Achievement content={data.achievement} />
           </div>
         </>
       )}

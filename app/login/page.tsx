@@ -7,7 +7,9 @@ import { redirect } from "next/navigation";
 import Image from "next/image";
 
 
-export default async function LoginPage() {
+export default async function LoginPage({ searchParams }: { searchParams: { [key: string]: string } }) {
+  const params = await searchParams;
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -78,9 +80,9 @@ export default async function LoginPage() {
                 >
                   Forgot password?
                 </a>
-                {/* {searchParams.message && (
+                {params.message && (
                   <p className="text-red-600">{searchParams.message}</p>
-                )} */}
+                )}
               </div>
               <button
                 formAction={login}
