@@ -74,12 +74,12 @@ export default async function LoginPage({ searchParams }: { searchParams: { [key
                   type="password"
                   name="password"
                 />
-                <a
+                <Link
                   className="text-white text-sm font-semibold w-5/6 text-end"
                   href="/signup"
                 >
                   Forgot password?
-                </a>
+                </Link>
                 {params.message && (
                   <p className="text-red-600">{searchParams.message}</p>
                 )}

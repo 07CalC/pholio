@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: { username: string 
 }
 
 
-export default async function ({ params }: { params: { username: string } }) {
+export default async function portfolio({ params }: { params: { username: string } }) {
     const { username } = await params
     return (
         <>
