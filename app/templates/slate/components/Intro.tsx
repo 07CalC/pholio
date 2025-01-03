@@ -12,7 +12,7 @@ import remarkGfm from "remark-gfm";
 export const Intro = ({ content }: { content: mockDataSchema["intro"] }) => {
   const sociallinks = content?.sociallinks;
   return (
-    <div className="w-full flex flex-col-reverse lg:flex-row gap-y-6 lg:gap-y-0 gap-x-12 justify-center items-center p-8 px-4 lg:p-24 text-white">
+    <div className="w-auto flex flex-col-reverse lg:flex-row gap-y-6 lg:gap-y-0 gap-x-12 justify-center items-center p-8 px-4 lg:p-24 text-white">
       <div className="lg:w-[10%] w-full flex lg:flex-col gap-x-2 gap-y-4 justify-center items-end">
         <div className="flex lg:flex-col gap-x-2 gap-y-4 justify-center items-center">
           <div className="lg:h-20 lg:w-1 h-1 w-20 bg-[#e7c66a]"></div>
@@ -52,7 +52,9 @@ export const Intro = ({ content }: { content: mockDataSchema["intro"] }) => {
             <p className="text-xl lg:text-2xl text-[#a9a9a9]">
               {content?.age}
               {content?.gender}
-              {content?.gender === "M" ? "(he/him)" : "(she/her)"}
+
+              {content?.gender &&
+                (content?.gender === "M" ? "(he/him)" : "(she/her)")}
             </p>
           </div>
 
@@ -70,7 +72,7 @@ export const Intro = ({ content }: { content: mockDataSchema["intro"] }) => {
 
         {content?.contactmail && (
           <div className="lg:self-start self-center flex gap-x-5 ">
-            <a href="mailto:maheshwarivinayak90@gmail.com">
+            <a href={`mailto:${content?.contactmail}`}>
               <button className="flex border-4 text-xl lg:text-2xl hover:text-[#34353a] hover:bg-[#e7c66a] border-[#e7c66a] text-[#e7c66a] rounded-xl p-2 gap-x-2 items-center">
                 Contact Me
               </button>
@@ -78,16 +80,17 @@ export const Intro = ({ content }: { content: mockDataSchema["intro"] }) => {
           </div>
         )}
       </div>
-
-      <div className="self-center lg:w-1/4 flex items-center justify-center">
-        <Image
-          src="https://res.cloudinary.com/dkhymc3li/image/upload/v1734860474/96346957_qwbdu5.png"
-          alt="logo"
-          width={460}
-          height={460}
-          className="lg:10/12 w-full h-full lg:10/12 border-2 border-[#e7c66a] rounded-full"
-        />
-      </div>
+      {content?.displayImage && (
+        <div className="self-center lg:w-1/3 flex items-center justify-center">
+          <Image
+            src={content?.displayImage}
+            alt="logo"
+            width={460}
+            height={460}
+            className="lg:10/12 w-full h-full lg:10/12 border-2 border-[#e7c66a] rounded-full"
+          />
+        </div>
+      )}
     </div>
   );
 };

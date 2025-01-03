@@ -1,12 +1,12 @@
 interface project {
   title: string;
   description: string;
-  LiveLink: string;
-  GithubLink: string;
+  LiveLink?: string;
+  GithubLink?: string;
   GitlabLink?: string;
-  FigmaLink: string;
-  imageLink: string;
-  techUsed: { [key: string]: string }[];
+  FigmaLink?: string;
+  imageLink?: string;
+  techUsed?: { [key: string]: string }[];
 }
 
 interface intro {
@@ -23,21 +23,29 @@ interface intro {
 }
 
 export type mockDataSchema = {
+  template: string,
+  blogs: boolean;
+  poems: boolean;
+  about?: string;
   intro?: intro;
   skills?: { [key: string]: string }[];
   experience?: { [key: string]: string }[];
   projects?: project[];
   education?: { [key: string]: string }[];
+  achievement?: { [key: string]: string }[];
 };
 
 export const mockData: mockDataSchema = {
+  template: 'slate',
+  blogs: true,
+  poems: true,
   intro: {
     username: "johnd",
     displayname: "John Doe",
     displayImage:
       "https://res.cloudinary.com/dkhymc3li/image/upload/v1735138383/96346957_vkuk3g.png",
-    age: "19",
-    gender: "M",
+    age: "",
+    gender: "",
     professionaltitle: "Web Developer",
     description: `i live in the cli, probably programming. mostly making stuff for the
           web but sometimes indulging with some low level dev. other than that,

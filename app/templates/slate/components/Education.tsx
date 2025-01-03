@@ -15,7 +15,7 @@ export const Education = ({
           <div
             key={key}
             className={`lg:w-1/2 ${
-              key % 2 === 0 ? "self-end" : "self-start"
+              key % 2 === 0 ? "lg:self-start" : "lg:self-end"
             } bg-[#34353a] rounded-xl flex flex-col-reverse lg:flex lg:flex-col  gap-x-5 p-8 justify-center items-center `}
           >
             <div className="w-full flex gap-x-10 justify-between items-center">
@@ -31,11 +31,9 @@ export const Education = ({
                 </p>
               </div>
               <div className="flex flex-col">
+              <p className="text-[1rem] lg:text-xl text-[#a9a9a9]">{item.from? item.from+ " -" : ""}  {item.to? item.to : ""}</p>
                 <p className="text-[1rem] lg:text-xl text-[#a9a9a9]">
-                  {item.from} - {item.to}
-                </p>
-                <p className="text-[1rem] lg:text-xl text-[#a9a9a9]">
-                  GPA: {item.cgpa}
+                  {item.cgpa ? "GPA: " + item.cgpa : ""}
                 </p>
               </div>
             </div>
