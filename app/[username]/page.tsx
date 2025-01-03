@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: { username: string 
 }
 
 
-export default async function portfolio({ params }: { params: { username: string } }) {
+export default async function portfolio({ params }: { params: { username: string } }): Promise<JSX.Element> {
     const { username } = await params
     return (
         <>
