@@ -13,7 +13,7 @@ type metaProps = {
 
 
 export async function generateMetadata({ params }: metaProps): Promise<Metadata> {
-    const { username } = await params
+    const username = (await params).username
     return {
         title: username || "Pholio",
         description: `hi this is ${username}` || "create portfolio in minutes",
@@ -24,15 +24,13 @@ export async function generateMetadata({ params }: metaProps): Promise<Metadata>
 }
 
 export interface PageProps {
-    params: {
-      username: string;
-    };
+    params: Promise<{ username: string }>;
   }
 
 
 export default async function portfolio(props: PageProps) {
 
-    const username = props.params.username
+    const username = (await props.params).username
     return (
         <>
         {mockData.template === 'darkMatter' && (
