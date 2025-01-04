@@ -3,6 +3,7 @@ import { signup } from "./actions";
 import { OAuthSignInButtons } from "../login/oauthSignInButtons";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 
 
 // type tParams = Promise<{ slug: string[] }>
@@ -19,7 +20,13 @@ export default async function SignUpPage() {
   return (
     <div className="absolute  flex-row-reverse inset-0 h-screen w-full flex bg-[#1b1b1b] bg-[linear-gradient(to_right,#505050_1px,transparent_1px),linear-gradient(to_bottom,#505050_1px,transparent_1px)] bg-[size:60px_60px]">
       <div className="w-1/3 bg-gradient-to-t from-[#6A00F4]  to-[#9C27B0] gap-3 rounded-l-[2.5rem] flex flex-col  justify-center items-center">
-        <img src="../favicon.ico" alt="logo" className="w-1/2" />
+        <Image
+                  src="https://res.cloudinary.com/dkhymc3li/image/upload/v1735216898/t3irkgz3pa3e6iqb7l7y.png"
+                  alt="logo"
+                  className="w-1/2"
+                  width={486}
+                  height={514}
+                />
         <strong className="text-white inter text-3xl md:text-5xl ">
         Join Pholio Today
         </strong>

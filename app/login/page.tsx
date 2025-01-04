@@ -25,7 +25,7 @@ export default async function LoginPage() {
         className={`w-1/3 bg-gradient-to-t from-[#6A00F4]  to-[#9C27B0] gap-3 rounded-r-[2.5rem] flex flex-col justify-center items-center `}
       >
         <Image
-          src="/favicon.ico"
+          src="https://res.cloudinary.com/dkhymc3li/image/upload/v1735216898/t3irkgz3pa3e6iqb7l7y.png"
           alt="logo"
           className="w-1/2"
           width={486}
