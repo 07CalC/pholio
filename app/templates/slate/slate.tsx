@@ -1,5 +1,5 @@
 import { encodeSans } from "@/app/fonts/Fonts";
-import { Navbar } from "./components/Navbar";
+// import { Navbar } from "./components/Navbar";
 import { mockDataSchema } from "@/app/preview/mockData";
 import { Intro } from "./components/Intro";
 import { Skills } from "./components/Skills";
@@ -15,10 +15,10 @@ export const Slate = ({ data }: { data: mockDataSchema }) => {
     <div
       className={`${encodeSans.className} bg-[#34353a] min-h-screen h-full text-white text-3xl font-bold flex flex-col items-center align-center`}
     >
-      <div className="w-full flex justify-center items-center">
+      {/* <div className="w-full flex justify-center items-center">
         <Navbar content={data?.intro?.username} />
       </div>
-      <div className="w-full h-20"></div>
+      <div className="w-full h-20"></div> */}
       <div className="w-full flex justify-center items-center"></div>
 
       {data.intro && (

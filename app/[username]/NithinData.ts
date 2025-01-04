@@ -67,107 +67,107 @@ export const nithinData: mockDataSchema = {
     {
       name: "Entrepreneurship",
       description: "Conceptualizing and pitching innovative business ideas.",
-      imgLink: "",
+      imgLink: "https://www.svgrepo.com/show/170156/businessman.svg",
     },
     {
       name: "Sustainability Innovation",
       description:
         "Designing eco-friendly products and packaging, as seen in Green Terra.",
-      imgLink: "",
+      imgLink: "https://www.svgrepo.com/show/293492/ecology-green.svg",
     },
     {
       name: "Gamification & Engagement",
       description:
         "Creating engaging platforms like Brain Candy that gamify learning.",
-      imgLink: "",
+      imgLink: "https://www.svgrepo.com/show/340361/gamification.svg",
     },
     {
       name: "Cloud Computing",
       description:
         "Understanding cloud gaming mechanics and infrastructure as developed for Cloudix.",
-      imgLink: "",
+      imgLink: "https://www.svgrepo.com/show/288372/cloud-computing-seo-and-web.svg",
     },
     {
       name: "AI & Predictive Analysis",
       description:
         "Designing AI-driven solutions for platforms like Astromatic AI.",
-      imgLink: "",
+      imgLink: "https://www.svgrepo.com/show/447866/ai-mi-algorithm.svg",
     },
     {
       name: "Technology Integration",
       description:
         "Combining technology with user experiences in products like Feastify and Waveroo.",
-      imgLink: "",
+      imgLink: "https://www.svgrepo.com/show/291508/technology-idea.svg",
     },
     {
       name: "Creative Product Design",
       description:
         "Developing unique solutions like Vastramukti for travel and fitness.",
-      imgLink: "",
+      imgLink: "https://www.svgrepo.com/show/433698/product-sf.svg",
     },
     {
       name: "Game Development",
       description:
         " Innovating immersive gaming experiences, demonstrated in Evolvion.",
-      imgLink: "",
+      imgLink: "https://www.svgrepo.com/show/503859/game.svg",
     },
     {
       name: "Data Analysis",
       description:
         "Proficient in data management, visualization, and analysis using tools like MS Excel.",
-      imgLink: "",
+      imgLink: "https://www.svgrepo.com/show/499835/data-report.svg",
     },
     {
       name: "Presentation Skills",
       description:
         "Skilled in creating professional pitches, websites, and promotional materials.",
-      imgLink: "",
+      imgLink: "https://www.svgrepo.com/show/513338/presentation.svg",
     },
   ],
 
   projects: [
     {
-      title: "Cloudix",
+      title: "Cloudix (brainstorming)",
       description:
         "A cloud gaming platform offering smooth gameplay with dedicated servers for optimized performance.",
     },
     {
-      title: "Green Terra",
+      title: "Green Terra (brainstorming)",
       description:
         "A plant-based food service that promotes sustainability through eco-friendly packaging and a plant-themed menu.",
     },
     {
-      title: "Waveroo",
+      title: "Waveroo (brainstorming)",
       description:
         "A smart band and social media app integrating fitness tracking with proximity-based social networking.",
     },
     {
-      title: "Brain Candy",
+      title: "Brain Candy (brainstorming)",
       description:
         "An educational platform that gamifies learning to increase engagement and retention for students.",
     },
     {
-      title: "Feastify",
+      title: "Feastify (brainstorming)",
       description:
         "A cloud restaurant using cutting-edge technology to deliver personalized dining experiences.",
     },
     {
-      title: "Astromatic AI",
+      title: "Astromatic AI (brainstorming)",
       description:
         "A platform providing advanced AI-driven predictive solutions to support businesses and industries.",
     },
     {
-      title: "Minimate",
+      title: "Minimate (brainstorming)",
       description:
         "Affordable portable software designed to offer practical and efficient computing solutions.",
     },
-    {
-      title: "Vastramukti",
+    { 
+      title: "Vastramukti (brainstorming)",
       description:
         "A stylish and compact travel and fitness product catering to modern, active lifestyles.",
     },
     {
-      title: "Evolvion",
+      title: "Evolvion (brainstorming)",
       description:
         "An immersive gaming experience blending creative storytelling with advanced gameplay mechanics.",
     },
@@ -175,7 +175,7 @@ export const nithinData: mockDataSchema = {
 
   education: [
     {
-      institute: "ABC University",
+      institute: "MU University",
       degree: "BBA",
       major: "Bussiness Analytics",
     },
