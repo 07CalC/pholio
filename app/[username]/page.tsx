@@ -5,6 +5,7 @@ import { mockData } from "../preview/mockData";
 import DarkMatter from "../templates/darkMatter/darkMatter";
 import { Slate } from "../templates/slate/slate";
 import { nithinData } from "./NithinData";
+import { headers } from "next/headers";
 
 
 type metaProps = {
@@ -29,7 +30,10 @@ export interface PageProps {
 
 
 export default async function portfolio(props: PageProps) {
-
+    const headerObj = await headers()
+    
+    console.log(headerObj.get('user-agent').split(',')[0].split(' ')[1])
+    
     const username = (await props.params).username
     return (
         <>

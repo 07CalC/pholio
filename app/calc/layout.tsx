@@ -5,7 +5,7 @@ const favicon: string = "https://res.cloudinary.com/dkhymc3li/image/upload/v1735
 
 export const metadata: Metadata = {
   title: "CalC",
-  description: "Hi, this is calc",
+  description: "Hi, this is Vinayak",
   icons: {
     icon: favicon,
   },

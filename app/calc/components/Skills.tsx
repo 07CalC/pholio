@@ -1,5 +1,4 @@
 
-
 const SkillList = [
   {
     name: "TypeScript",
@@ -18,16 +17,20 @@ const SkillList = [
     imgLink: "https://www.svgrepo.com/show/374118/tailwind.svg"
   },
   {
-    name: "supabase",
-    imgLink: "https://seeklogo.com/images/S/supabase-logo-DCC676FFE2-seeklogo.com.png"
-  },
-  {
     name: "NextJs",
     imgLink: "https://res.cloudinary.com/dkhymc3li/image/upload/v1735388059/fn7eauiypwssdrb5hevv.png",
   },
   {
     name: "Postgresql",
     imgLink: "https://www.svgrepo.com/show/354200/postgresql.svg",
+  },
+  {
+    name: "Docker",
+    imgLink: "https://res.cloudinary.com/dkhymc3li/image/upload/v1738153841/yzwcb1zjo6nfumplkooj.png"
+  },
+  {
+    name: "Expo",
+    imgLink: "https://res.cloudinary.com/dkhymc3li/image/upload/v1738154012/b8e7wha2fexjrthnchdz.png"
   }
 ]
 

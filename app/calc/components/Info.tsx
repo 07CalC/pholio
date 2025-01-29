@@ -14,13 +14,13 @@ export const Info = () => {
           alt="logo"
           width={460}
           height={460}
-          className="lg:10/12 lg:10/12 rounded-full"
+          className="lg:10/12 shadow-lg border border-[#6A00F4] shadow-[#6A00F4] lg:10/12 rounded-full"
         />
       </div>
       <div className="flex gap-y-5 flex-col justify-center my-4 lg:my-0 lg:items-start">
         <div className="text-xl flex lg:flex flex-col gap-x-2 gap-y-2 text-center lg:text-start">
           <div>
-            <strong className="text-4xl lg:text-6xl ">Vinayak(CalC)</strong>{" "}
+            <strong className="text-4xl lg:text-6xl ">Vinayak Maheshwari</strong>{" "}
           </div>
           <div>
             <strong className="text-xl lg:text-2xl text-slate-300">
@@ -32,7 +32,7 @@ export const Info = () => {
         <div className="text-xl text-center lg:text-start lg:text-3xl ">
           Hobbyist Web Developer <br />
           into new technologies <br />
-          currently learning Rust <br />
+          currently learning React Native <br />
           Building{" "}
           <a
             href="https://pholio.online"
